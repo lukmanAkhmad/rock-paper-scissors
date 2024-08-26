@@ -3,15 +3,21 @@ function getComputerChoice() {
     let computerChoice = "";
     switch (randomNumber) {
         case 0:
-            computerChoice = "Rock";
+            computerChoice = "rock";
             break;
         case 1:
-            computerChoice = "Paper";
+            computerChoice = "paper";
             break;
         case 2:
-            computerChoice = "Scissors";
+            computerChoice = "scissors";
             break;
     }
     return computerChoice;
 }
 console.log(getComputerChoice());
+
+function getHumanChoice() {
+    let humanChoice = prompt("Rock, Paper or Scissors ?", "").toLowerCase();
+    console.log(humanChoice)
+}
+getHumanChoice();
