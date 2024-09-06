@@ -33,7 +33,7 @@ function playGame() {
         console.log(`Computer Score: ${computerScore}`);
     }
 }
-playGame();
+// playGame();
 
 function getComputerChoice() {
     let randomNumber = Math.floor(Math.random() * 3)
@@ -57,3 +57,30 @@ function getHumanChoice() {
     return humanChoice;
 }
 
+// User Interface
+const body = document.querySelector("body");
+
+const buttonRock = document.createElement("button");
+buttonRock.setAttribute("id","buttonRock");
+const buttonPaper = document.createElement("button");
+buttonPaper.setAttribute("id","buttonPaper");
+const buttonScissors = document.createElement("button");
+buttonScissors.setAttribute("id","buttonScissors");
+const br = document.createElement("br");
+const divContainer = document.createElement("div");
+divContainer.setAttribute("id","divContainer")
+// tambahkan subdiv untuk menggantikan semua yang di connsole.log
+
+body.appendChild(buttonRock)
+body.appendChild(buttonPaper)
+body.appendChild(buttonScissors)
+
+body.appendChild(divContainer)
+
+buttonRock.textContent = "Rock";
+buttonPaper.textContent = "Paper";
+buttonScissors.textContent = "Scissors";
+
+divContainer.textContent = "Hello World";
+
+buttonRock.addEventListener("click", () => console.log("buttonRock"))
