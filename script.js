@@ -1,86 +1,68 @@
-function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
+const body = document.querySelector("body")
 
-    function playRound(humanChoice, computerChoice) {
-        console.log(`Human Choice: ${humanChoice} Computer Choice: ${computerChoice}`);
+let buttonStart = document.createElement("button");
+buttonStart.textContent = "Start";
+buttonStart.addEventListener("click", () => {
+    hiddenButtonStart()
+    createDivContainer()
+})
 
-        if ((humanChoice === "rock" && computerChoice === "scissors") ||
-            (humanChoice === "scissors" && computerChoice === "paper") ||
-            (humanChoice === "paper" && computerChoice === "rock")
-        ) {
-            ++humanScore
+body.appendChild(buttonStart);
 
-            console.log(`You Win! ${humanChoice} beats ${computerChoice}`)
-        } else if ((computerChoice === "rock" && humanChoice === "scissors") ||
-            (computerChoice === "scissors" && humanChoice === "paper") ||
-            (computerChoice === "paper" && humanChoice === "rock")) {
-            ++computerScore
-
-            console.log(`You Lose! ${computerChoice} beats ${humanChoice}`)
-        } else if ((humanChoice === "rock" && computerChoice === "rock") ||
-            (humanChoice === "scissors" && computerChoice === "scissors") ||
-            (humanChoice === "paper" && computerChoice === "paper")) {
-            console.log(`It's a Tie! ${computerChoice} beats ${humanChoice}`)
-        }
-
-    }
-
-    for (let i = 1; i <= 5; i++) {
-        playRound(getHumanChoice(), getComputerChoice())
-
-        console.log(`Human Score: ${humanScore}`);
-        console.log(`Computer Score: ${computerScore}`);
+let hiddenStart = false;
+function hiddenButtonStart() {
+    hiddenStart = !hiddenStart;
+    if (hiddenStart) {
+        buttonStart.style.visibility = "hidden";
+    } else {
+        buttonStart.style.visibility = "visible";
     }
 }
-// playGame();
 
-function getComputerChoice() {
-    let randomNumber = Math.floor(Math.random() * 3)
-    let computerChoice = "";
-    switch (randomNumber) {
-        case 0:
-            computerChoice = "rock";
-            break;
-        case 1:
-            computerChoice = "paper";
-            break;
-        case 2:
-            computerChoice = "scissors";
-            break;
-    }
-    return computerChoice;
+function createDivContainer() {
+    const divContainer = document.createElement("div");
+    divContainer.setAttribute("id", "divContainer");
+    body.appendChild(divContainer);
+    // divContainer.textContent = "Div Container";
+    createButton()
+    createSubDiv()
 }
 
-function getHumanChoice() {
-    let humanChoice = prompt("Rock, Paper or Scissors ?", "").toLowerCase();
-    return humanChoice;
+function createButton() {
+    const buttonRock = document.createElement("button");
+    buttonRock.setAttribute("id", "buttonRock");
+    const buttonPaper = document.createElement("button");
+    buttonPaper.setAttribute("id", "buttonPaper");
+    const buttonScissors = document.createElement("button");
+    buttonScissors.setAttribute("id", "buttonScissors");
+
+    buttonRock.textContent = "Rock";
+    buttonPaper.textContent = "Paper";
+    buttonScissors.textContent = "Scissors";
+
+    divContainer.appendChild(buttonRock)
+    divContainer.appendChild(buttonPaper)
+    divContainer.appendChild(buttonScissors)
 }
 
-// User Interface
-const body = document.querySelector("body");
+function createSubDiv() {
+    const divHumanChoice = document.createElement("div");
+    const divComputerChoice = document.createElement("div");
+    const divInformation = document.createElement("div");
+    const divHumanScore = document.createElement("div");
+    const divComputerScore = document.createElement("div");
 
-const buttonRock = document.createElement("button");
-buttonRock.setAttribute("id","buttonRock");
-const buttonPaper = document.createElement("button");
-buttonPaper.setAttribute("id","buttonPaper");
-const buttonScissors = document.createElement("button");
-buttonScissors.setAttribute("id","buttonScissors");
-const br = document.createElement("br");
-const divContainer = document.createElement("div");
-divContainer.setAttribute("id","divContainer")
-// tambahkan subdiv untuk menggantikan semua yang di connsole.log
 
-body.appendChild(buttonRock)
-body.appendChild(buttonPaper)
-body.appendChild(buttonScissors)
+    divHumanChoice.textContent = `Human Choice: `;
+    divComputerChoice.textContent = `Computer Choice: `;
+    divInformation.textContent = `Information: contoh output nya=  You Win! humanChoice beats computerChoice`;
+    divHumanScore.textContent = `Human Score: `;
+    divComputerScore.textContent = `Computer Score: `;
 
-body.appendChild(divContainer)
+    divContainer.appendChild(divHumanChoice);
+    divContainer.appendChild(divComputerChoice);
+    divContainer.appendChild(divInformation);
+    divContainer.appendChild(divHumanScore);
+    divContainer.appendChild(divComputerScore);
 
-buttonRock.textContent = "Rock";
-buttonPaper.textContent = "Paper";
-buttonScissors.textContent = "Scissors";
-
-divContainer.textContent = "Hello World";
-
-buttonRock.addEventListener("click", () => console.log("buttonRock"))
+}
