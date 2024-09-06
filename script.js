@@ -1,68 +1,88 @@
-const body = document.querySelector("body")
+function playGame() {
+    // User Interface
+    const body = document.querySelector("body");
 
-let buttonStart = document.createElement("button");
-buttonStart.textContent = "Start";
-buttonStart.addEventListener("click", () => {
-    hiddenButtonStart()
-    createDivContainer()
-})
-
-body.appendChild(buttonStart);
-
-let hiddenStart = false;
-function hiddenButtonStart() {
-    hiddenStart = !hiddenStart;
-    if (hiddenStart) {
-        buttonStart.style.visibility = "hidden";
-    } else {
-        buttonStart.style.visibility = "visible";
-    }
-}
-
-function createDivContainer() {
-    const divContainer = document.createElement("div");
-    divContainer.setAttribute("id", "divContainer");
-    body.appendChild(divContainer);
-    // divContainer.textContent = "Div Container";
-    createButton()
-    createSubDiv()
-}
-
-function createButton() {
     const buttonRock = document.createElement("button");
     buttonRock.setAttribute("id", "buttonRock");
     const buttonPaper = document.createElement("button");
     buttonPaper.setAttribute("id", "buttonPaper");
     const buttonScissors = document.createElement("button");
-    buttonScissors.setAttribute("id", "buttonScissors");
 
     buttonRock.textContent = "Rock";
     buttonPaper.textContent = "Paper";
-    buttonScissors.textContent = "Scissors";
+    buttonScissors.textContent = "Scissors"
 
-    divContainer.appendChild(buttonRock)
-    divContainer.appendChild(buttonPaper)
-    divContainer.appendChild(buttonScissors)
-}
+    body.appendChild(buttonRock)
+    body.appendChild(buttonPaper)
+    body.appendChild(buttonScissors)
 
-function createSubDiv() {
-    const divHumanChoice = document.createElement("div");
-    const divComputerChoice = document.createElement("div");
+    buttonRock.addEventListener("click", () => playRound("rock", getComputerChoice()));
+    buttonPaper.addEventListener("click", () => playRound("paper", getComputerChoice()));
+    buttonScissors.addEventListener("click", () => playRound("scissors", getComputerChoice()));
+
+    const divWinnerInfo = document.createElement("div");
     const divInformation = document.createElement("div");
     const divHumanScore = document.createElement("div");
     const divComputerScore = document.createElement("div");
 
+    body.appendChild(divInformation);
+    body.appendChild(divWinnerInfo);
+    body.appendChild(divHumanScore);
+    body.appendChild(divComputerScore);
+    // end
 
-    divHumanChoice.textContent = `Human Choice: `;
-    divComputerChoice.textContent = `Computer Choice: `;
-    divInformation.textContent = `Information: contoh output nya=  You Win! humanChoice beats computerChoice`;
-    divHumanScore.textContent = `Human Score: `;
-    divComputerScore.textContent = `Computer Score: `;
+    let humanScore = 0;
+    let computerScore = 0;
 
-    divContainer.appendChild(divHumanChoice);
-    divContainer.appendChild(divComputerChoice);
-    divContainer.appendChild(divInformation);
-    divContainer.appendChild(divHumanScore);
-    divContainer.appendChild(divComputerScore);
+    function playRound(humanChoice, computerChoice) {
+        divInformation.textContent = `Human Choice: ${humanChoice} | Computer Choice: ${computerChoice}`;
 
+        if ((humanChoice === "rock" && computerChoice === "scissors") ||
+            (humanChoice === "scissors" && computerChoice === "paper") ||
+            (humanChoice === "paper" && computerChoice === "rock")
+        ) {
+            ++humanScore
+
+            divWinnerInfo.textContent = `You Win! ${humanChoice} beats ${computerChoice}`;
+        } else if ((computerChoice === "rock" && humanChoice === "scissors") ||
+            (computerChoice === "scissors" && humanChoice === "paper") ||
+            (computerChoice === "paper" && humanChoice === "rock")) {
+            ++computerScore
+
+            divWinnerInfo.textContent = `You Lose! ${computerChoice} beats ${humanChoice}`;
+        } else if ((humanChoice === "rock" && computerChoice === "rock") ||
+            (humanChoice === "scissors" && computerChoice === "scissors") ||
+            (humanChoice === "paper" && computerChoice === "paper")) {
+            
+            divWinnerInfo.textContent = `It's a Tie! ${computerChoice} beats ${humanChoice}`;
+        }
+
+        divHumanScore.textContent = `Human Score: ${humanScore}`;
+        divComputerScore.textContent = `Computer Score: ${computerScore}`;
+
+        if (computerScore === 5 || humanScore === 5) {
+            buttonPaper.style.visibility = "hidden";
+            buttonRock.style.visibility = "hidden";
+            buttonScissors.style.visibility = "hidden"
+        }
+    }
+
+}
+playGame();
+
+function getComputerChoice() {
+    let randomNumber = Math.floor(Math.random() * 3)
+    let computerChoice = "";
+    switch (randomNumber) {
+        case 0:
+            computerChoice = "rock";
+            break;
+        case 1:
+            computerChoice = "paper";
+            break;
+        case 2:
+            computerChoice = "scissors";
+            break;
+    }
+    return computerChoice;
 }
