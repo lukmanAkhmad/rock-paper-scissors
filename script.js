@@ -24,11 +24,13 @@ function playGame() {
     const divInformation = document.createElement("div");
     const divHumanScore = document.createElement("div");
     const divComputerScore = document.createElement("div");
+    const divAnnouncement = document.createElement("div");
 
     body.appendChild(divInformation);
     body.appendChild(divWinnerInfo);
     body.appendChild(divHumanScore);
     body.appendChild(divComputerScore);
+    body.appendChild(divAnnouncement);
     // end
 
     let humanScore = 0;
@@ -59,6 +61,9 @@ function playGame() {
 
         divHumanScore.textContent = `Human Score: ${humanScore}`;
         divComputerScore.textContent = `Computer Score: ${computerScore}`;
+
+        if(computerScore === 5) divAnnouncement.textContent = "Computer Winner !";
+        if(humanScore === 5) divAnnouncement.textContent = "Human Winner !";
 
         if (computerScore === 5 || humanScore === 5) {
             buttonPaper.style.visibility = "hidden";
